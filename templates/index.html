@@ -1,0 +1,11 @@
+<html>
+<body>
+<h1>{{ displayTime }}</h1>
+<img src="{{ motionCaptureDir }}/lastsnap.jpg?nocache={{ timestamp }}" />
+{% for capture in motionCaptures %}
+<div>
+<a href="{{ motionCaptureDir }}/{{ capture.videoFile }}"><img width="200px" src="{{ motionCaptureDir }}/{{ capture.imageFile }}" /></a>
+</div>
+{% endfor %}
+</body>
+</html>
