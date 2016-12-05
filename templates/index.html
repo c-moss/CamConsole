@@ -4,7 +4,8 @@
 <img src="{{ motionCaptureDir }}/lastsnap.jpg?nocache={{ timestamp }}" />
 {% for capture in motionCaptures %}
 <div>
-<a href="{{ motionCaptureDir }}/{{ capture.videoFile }}"><img width="200px" src="{{ motionCaptureDir }}/{{ capture.imageFile }}" /></a>
+<a href="{{ motionCaptureDir }}/{{ capture.eventTimestamp }}.mp4"><img width="200px" src="{{ motionCaptureDir }}/{{ capture.eventTimestamp }}.jpg" /></a>{{ capture.timestamp }}
+{# {{ capture.fileName }} -- {{ capture.timestamp }} -- {{ capture.eventTimestamp }} #}
 </div>
 {% endfor %}
 </body>

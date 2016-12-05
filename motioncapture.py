@@ -1,29 +1,56 @@
 class MotionCapture:
-    def __init__(self, videoFile, imageFile=None, modDate=None):
-        self.videoFile = videoFile
-        self.imageFile = imageFile
-        self.modDate = modDate
+    def __init__(self, cameraId, fileName, frame, fileType, timestamp, eventTimestamp):
+        self.cameraId = cameraId
+        self.fileName = fileName
+        self.frame = frame
+        self.fileType = fileType
+        self.timestamp = timestamp
+        self.eventTimestamp = eventTimestamp
 
     @property
-    def videoFile(self):
-        return self.__videoFile
+    def cameraId(self):
+        return self.__cameraId
 
-    @videoFile.setter
-    def videoFile(self, f):
-        self.__videoFile = f
-
-    @property
-    def imageFile(self):
-        return self.__imageFile
-
-    @imageFile.setter
-    def imageFile(self, f):
-        self.__imageFile = f
+    @cameraId.setter
+    def cameraId(self, f):
+        self.__cameraId = f
 
     @property
-    def modDate(self):
-        return self.__modDate
+    def fileName(self):
+        return self.__fileName
 
-    @modDate.setter
-    def modDate(self, d):
-        self.__modDate = d
+    @fileName.setter
+    def fileName(self, f):
+        self.__fileName = f
+
+    @property
+    def frame(self):
+        return self.__frame
+
+    @frame.setter
+    def frame(self, f):
+        self.__frame = f
+
+    @property
+    def fileType(self):
+        return self.__fileType
+
+    @fileType.setter
+    def fileType(self, f):
+        self.__fileType = f
+
+    @property
+    def timestamp(self):
+        return self.__timestamp
+
+    @timestamp.setter
+    def timestamp(self, f):
+        self.__timestamp = f
+
+    @property
+    def eventTimestamp(self):
+        return self.__eventTimestamp
+
+    @eventTimestamp.setter
+    def eventTimestamp(self, f):
+        self.__eventTimestamp = f
