@@ -1,12 +1,139 @@
 <html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+<style type="text/css">
+body {
+    background-color: #202020;
+	color: white;
+    font-family: "Open Sans", "lucida sans unicode", "lucida grande", "Trebuchet MS", verdana, arial, helvetica, helve, sans-serif;
+}
+
+div.section {
+	background-color: rgba(255,255,255,0.2);
+	padding: 10px;
+	border: 1px solid white;
+}
+
+div.lastsnap {
+    margin-bottom: 10px;
+}
+
+div.grid {
+    overflow: hidden;
+}
+
+div.lastsnap img {
+    display: block;
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+div.capture {
+    padding: 5px;
+    float: left;
+}
+div.capture img {
+    width: 300px;
+}
+
+h1 {
+    margin: 0;
+    padding: 0;
+}
+
+h1.overlabel {
+    position: absolute;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+div.date {
+}
+
+input#datepicker {
+    color: white;
+    font-size: 15pt;
+    border: 1px solid white;
+    background-color: rgba(255,255,255,0.1);
+}
+
+</style>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+  function datePicked(dateStr, picker) {
+    setURLParam("day", dateStr);
+  }
+
+  function getURLParams() {
+  	if (window.location.search) {
+      var queryParams = window.location.search.substring(1).split("&");
+	  return queryParams.map(function(n) {
+	    n = n.split("=")
+        this[n[0]] = n[1];
+        return this;
+	  }.bind({}))[0];
+	} else {
+	  return {};
+	}
+  }
+
+  function setURLParams(obj) {
+    if (Object.keys(obj) && Object.keys(obj).length) {
+	  var queryString = Object.keys(obj).map(function(n) {
+	    return n + "=" + obj[n];
+	  }).join("&");
+	  window.location.search = queryString;
+	} else {
+	  window.location.search = "";
+	}
+  }
+
+  function setURLParam(key, value) {
+    var params = getURLParams();
+	params[key] = value;
+	setURLParams(params);
+  }
+
+  $( function() {
+    var selectedDate = getURLParams()["day"];
+    $("#datepicker").val(selectedDate);
+    $("#datepicker").datepicker({
+      dateFormat: "yy-mm-dd",
+	  onSelect: datePicked,
+	  maxDate: 0,
+	  defaultDate: selectedDate
+    });
+  } );
+</script>
+</head>
 <body>
-<h1>{{ displayTime }}</h1>
+<div class="lastsnap section">
+<h1 class="overlabel">Latest</h1>
 <img src="{{ motionCaptureDir }}/lastsnap.jpg?nocache={{ timestamp }}" />
-{% for capture in motionCaptures %}
-<div>
-<a href="{{ motionCaptureDir }}/{{ capture.eventTimestamp }}.mp4"><img width="200px" src="{{ motionCaptureDir }}/{{ capture.eventTimestamp }}.jpg" /></a>{{ capture.timestamp }}
-{# {{ capture.fileName }} -- {{ capture.timestamp }} -- {{ capture.eventTimestamp }} #}
 </div>
+
+<div class="grid section">
+
+<h3 class="date">
+Date: 
+<input type="text" id="datepicker"></input>
+</h3>
+
+{% for capture in motionCaptures %}
+
+<div class="capture">
+<a href="{{ motionCaptureDir }}/{{ capture.eventTimestamp }}.mp4"><img width="200px" src="{{ motionCaptureDir }}/{{ capture.eventTimestamp }}.jpg" /></a>
+</a>
+<div class="timestamp">{{ capture.timestamp }}</div>
+</div>
+
 {% endfor %}
+
+</div>
+
+
 </body>
 </html>
