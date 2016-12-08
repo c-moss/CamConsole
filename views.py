@@ -1,7 +1,7 @@
 from app import app, render_template, datetime, timedelta
 from app.motioncapture import MotionCapture
 from app.motiondb import get_motion_captures
-from flask import request, Response
+from flask import request, Response, redirect
 from functools import wraps
 from os import getcwd, listdir
 from os.path import isfile, join
@@ -42,6 +42,9 @@ def index():
     displayTime = str(datetime.now()).split('.')[0]
     timestamp = (datetime.now() - datetime.fromtimestamp(0)).total_seconds() * 1000.0
     todayDate = datetime.now().strftime("%Y-%m-%d")
-    day_str = request.args.get('day', todayDate)
-    motionCaptures = getMotionCaptures(day_str)
-    return render_template('index.html', motionCaptureDir=motionCaptureDir, displayTime=displayTime, timestamp=timestamp, motionCaptures=motionCaptures)
+    day_str = request.args.get('day')
+    if day_str:
+        motionCaptures = getMotionCaptures(day_str)
+        return render_template('index.html', motionCaptureDir=motionCaptureDir, displayTime=displayTime, timestamp=timestamp, motionCaptures=motionCaptures)
+    else:
+        return redirect("/?day={0}".format(todayDate), code=302)
