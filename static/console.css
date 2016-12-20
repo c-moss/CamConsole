@@ -30,7 +30,7 @@ div.capture {
     float: left;
 }
 div.capture img {
-    width: 300px;
+    width: 200px;
 }
 
 h1 {
@@ -53,4 +53,21 @@ input#datepicker {
     background-color: rgba(255,255,255,0.1);
 }
 
+@media (min-width: 1000px) {
+    div.capture img {
+        width: 300px;
+    }
+}
 
+@media (max-width: 465px) {
+    div.capture {
+        padding: 0;
+        float: none;
+    }
+    div.capture img {
+        display: block;
+        max-width: 600px;
+        width: 100%;
+        margin: 0 auto;
+    }
+}
