@@ -5,6 +5,7 @@ from flask import request, Response, redirect
 from functools import wraps
 from os import getcwd, listdir, statvfs
 from os.path import isfile, join
+from subprocess import check_output
 
 motionCaptureDir = "/static/motion"
 
@@ -58,7 +59,7 @@ def format_disk_space(size):
    else:
        return "{0}TB".format(round(size/(1024*1024*1024*1024),1))
 
-def disk_usage(path):
+def get_disk_usage(path):
     """Return disk usage associated with path."""
     try:
         st = statvfs(path)
@@ -75,14 +76,20 @@ def disk_usage(path):
             st = statvfs(path)
         else:
             raise
-    free = format_disk_space(st.f_bavail * st.f_frsize)
+    free = (st.f_bavail * st.f_frsize)
     total = (st.f_blocks * st.f_frsize)
     used = (st.f_blocks - st.f_bfree) * st.f_frsize
     percent = usage_percent(used, total, _round=1)
     # NB: the percentage is -5% than what shown by df due to
     # reserved blocks that we are currently not considering:
     # http://goo.gl/sWGbH
-    return {'total': total, 'used': used, 'free': free, 'percent': percent}
+    return {'total': format_disk_space(total), 'used': format_disk_space(used), 'free': format_disk_space(free), 'percent': percent}
+
+def get_uptime():
+    return check_output('uptime').decode('utf-8')
+
+def get_temp():
+    return check_output(['/opt/vc/bin/vcgencmd', 'measure_temp']).decode('utf-8').split('=')[1]
 
 @app.route('/')
 @app.route('/index')
@@ -101,4 +108,4 @@ def index():
 @app.route('/status')
 @requires_auth
 def status():
-    return render_template('status.html', file_stats=disk_usage("/"))
+    return render_template('status.html', file_stats=get_disk_usage("/"), uptime=get_uptime(), temp=get_temp())

@@ -12,15 +12,15 @@
 <h3>System status</h3>
 <div class="formRow">
   <label for="id1">System temperature:</label>
-  <span class="staticField" id="id1">bar</span>
+  <span class="staticField" id="id1">{{ temp }}</span>
 </div>
 <div class="formRow">
   <label for="id2">Uptime:</label>
-  <span class="staticField" id="id2">bar</span>
+  <span class="staticField" id="id2">{{ uptime }}</span>
 </div>
 <div class="formRow">
   <label for="id3">Free space:</label>
-  <span class="staticField" id="id3">{{ file_stats['free'] }} ({{ file_stats['percent'] }}% used)</span>
+  <span class="staticField" id="id3">{{ file_stats['free'] }}/{{ file_stats['total'] }} ({{ file_stats['percent'] }}% used)</span>
 </div>
 </div>
 </body>

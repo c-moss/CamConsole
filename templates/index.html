@@ -21,10 +21,31 @@
 	  maxDate: 0,
 	  defaultDate: selectedDate
     });
+
+    $("#settings-menu").menu();
+    $("#settings-menu").mouseleave(function() {
+        $("#settings-menu").hide();
+    });
+    $("#settings-menu").hide();
+
+    $("#settings").click(function() {
+        $("#settings-menu").show();
+    });
   } );
 </script>
 </head>
 <body>
+
+<div id="settings" class="settings">
+
+<ul id="settings-menu">
+   <li><a href = "#">Spring</a></li>
+   <li><a href = "#">Hibernate</a></li>
+   <li><a href = "#">Java</a>
+</ul>
+
+</div>
+
 <div class="lastsnap section">
 <h1 class="overlabel">Current</h1>
 <img src="{{ motionCaptureDir }}/lastsnap.jpg?nocache={{ timestamp }}" />

@@ -4,10 +4,34 @@ body {
     font-family: "Open Sans", "lucida sans unicode", "lucida grande", "Trebuchet MS", verdana, arial, helvetica, helve, sans-serif;
 }
 
+div.settings {
+    background-color: rgba(255,255,255,0.5);
+    background-image: url("/static/img/gear.png");
+    background-size: 50px 50px;
+    border: 1px solid white;
+    border-radius: 25px;
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    right: 10px;
+    top: 10px;
+}
+
+.ui-menu {
+    background-color: rgba(255,255,255,0.5);
+    border: 1px solid white;
+    border-radius: 10px 25px 10px 10px;
+    position: relative;
+    top: 0;
+    right: 150px;
+    width: 200px;
+}
+
 div.section {
     background-color: rgba(255,255,255,0.2);
     padding: 10px;
     border: 1px solid white;
+    border-radius: 10px;
 }
 
 div.lastsnap {
@@ -79,6 +103,7 @@ input#datepicker {
 div.formRow {
     font-size: 10pt;
     width: 100%;
+    margin-bottom: 1em;
 }
 
 div.formRow label {
@@ -91,4 +116,6 @@ div.formRow label {
 
 .staticField {
     padding-left: 20px;
+    font-weight: 100;
+    color: #999;
 }
